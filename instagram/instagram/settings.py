@@ -31,11 +31,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'activity.apps.ActivityConfig'
-    'content.apps.ContentConfig'
-    'location.apps.LocationConfig'
-    'relation.apps.relationConfig'
-    'user.apps.UserConfig'
+    'content.apps.ContentConfig',
+    'location.apps.LocationConfig',
+    'activity.apps.ActivityConfig',
+    'relation.apps.RelationConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
