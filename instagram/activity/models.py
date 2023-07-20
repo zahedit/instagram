@@ -12,20 +12,20 @@ class Comment(BaseModel):
     post = models.ForeignKey(Post, verbose_name='post', related_name='comments', on_delete=models.CASCADE)
     reply_to = models.ForeignKey('self', related_name='replaies', on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.caption
-
     class Meta:
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
+
+    def __str__(self):
+        return self.caption
 #############################################
 class Like(BaseModel):
     user = models.ForeignKey(User, verbose_name='user', related_name='likes', on_delete=models.CASCADE)
     post = models.ForeignKey(Post, verbose_name='post', related_name='likes', on_delete=models.CASCADE)
 
-    def __str__(self):
-        return "{} >> {}".format(self.user.username, self.post.id)
-    
     class Meta:
         verbose_name = _("like")
         verbose_name_plural = _("likes")
+
+    def __str__(self):
+        return "{} >> {}".format(self.user.username, self.post.id)

@@ -6,6 +6,11 @@
     <title>Profile</title>
 </head>
 <body>
-    <h3>hi, {{request.user.username}}</h3>
+    <h3>username, {{object.username}}</h3>
+    <h3>bio, {{object.bio}}</h3>
+    <h3>website, {{object.website}}</h3>
+    <p>followers : {{followers_count}}</p>
+    <p>following : {{followings_count}}</p>
+    <p>posts : {{posts_count}}</p>
 </body>
 </html>

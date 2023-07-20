@@ -3,13 +3,15 @@ from lib.common_models import BaseModel
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from location.models import  Location
+from django.core.validators import FileExtensionValidator
+
 
 User = get_user_model()
 
 class Post(BaseModel):
     caption = models.TextField(_('caption'), blank= True)
     user = models.ForeignKey(User, verbose_name='user', related_name='posts', on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, verbose_name='location', related_name='posts', on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, verbose_name='location', blank=True, related_name='posts', on_delete=models.CASCADE)
     
     def __str__(self):
         return "{} ({})".format(self.user.username, self.id)
@@ -28,7 +30,8 @@ class PostMedia(BaseModel):
     )
     media_type = models.PositiveSmallIntegerField(_('media type'), choices=TYPE_CHIOSES, default=IMAGE)
     post = models.ForeignKey(Post, verbose_name='post', related_name='media', on_delete=models.CASCADE)
-    media_file = models.FileField(_('media file'), upload_to='content/media/')
+    media_file = models.FileField(_('media file'), upload_to='content/media/',
+                                  validators=[FileExtensionValidator(allowed_extensions=('jpg', 'jpeg', 'mp4', 'wmv', 'flv', 'png'))])
 
     def __str__(self):
         return "{} {}".format(str(self.post), self.get_media_type_display()) #show the translation of media_type
