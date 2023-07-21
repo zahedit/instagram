@@ -9,6 +9,7 @@ from django.contrib.auth import login, get_user_model
 from django.views.generic import FormView, UpdateView, DetailView
 from user.forms import RegistrationForm, LoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from relation.models import Relation
 
 User = get_user_model()
 
@@ -53,4 +54,7 @@ class ProfileDetailView(DetailView):
         context['posts_count'] = user.posts.count() #related_name = posts (for post model > user)
         context['followers_count'] = user.followers.count() # from Relation model get the [from_user] as related_name= followers
         context['followings_count'] = user.followings.count()
+        context['is_following'] = Relation.objects.filter(from_user= self.request.user, to_user= user).exists() #if is true > they follow
+        if self.request.user == user:
+            context['is_the_same'] = True
         return context

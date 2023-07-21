@@ -12,5 +12,12 @@
     <p>followers : {{followers_count}}</p>
     <p>following : {{followings_count}}</p>
     <p>posts : {{posts_count}}</p>
+
+    {% if not is_the_same %}
+    <form action="{% url 'follow-unfollow' object.username %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value={% if is_following %}"unfollow"{% else %}"follow"{% endif %}>
+    </form>
+    {% endif %}
 </body>
 </html>
